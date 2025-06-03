@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Pagination } from '@openedx/paragon';
-import {
-  ActiveCourseFilters,
-} from 'containers/CourseFilterControls';
-import CourseCard from 'containers/CourseCard';
+import { Pagination } from "@openedx/paragon";
+import { ActiveCourseFilters } from "containers/CourseFilterControls";
+import CourseCard from "containers/CourseCard";
 
-import { useIsCollapsed } from './hooks';
+import { useIsCollapsed } from "./hooks";
+import { useAppContext } from "../../../../context";
+import CustomMessage from "../NoCoursesView/customMessage";
 
 export const CourseList = ({ courseListData }) => {
-  const {
-    filterOptions, setPageNumber, numPages, showFilters, visibleList,
-  } = courseListData;
+  const { filterOptions, setPageNumber, numPages, showFilters, visibleList } =
+    courseListData;
   const isCollapsed = useIsCollapsed();
+  const { customization, multiTenancyloading } = useAppContext();
   return (
     <>
       {showFilters && (
@@ -21,13 +21,25 @@ export const CourseList = ({ courseListData }) => {
           <ActiveCourseFilters {...filterOptions} />
         </div>
       )}
-      <div className="d-flex flex-column flex-grow-1">
+      <div
+        className="d-flex flex-column flex-grow-1"
+        style={{ backgroundColor: "#f8f9fa", padding: "20px" }}
+      >
+        {customization?.data?.courseContainer && (
+          <div style={{ paddingBottom: "15px" }}>
+            <CustomMessage data={customization?.data?.courseContainer?.top} />
+          </div>
+        )}
         {visibleList.map(({ cardId }) => (
           <CourseCard key={cardId} cardId={cardId} />
         ))}
+
+        {customization?.data?.courseContainer && (
+          <CustomMessage data={customization?.data?.courseContainer?.bottom} />
+        )}
         {numPages > 1 && (
           <Pagination
-            variant={isCollapsed ? 'reduced' : 'secondary'}
+            variant={isCollapsed ? "reduced" : "secondary"}
             paginationLabel="Course List"
             className="mx-auto mb-2"
             pageCount={numPages}

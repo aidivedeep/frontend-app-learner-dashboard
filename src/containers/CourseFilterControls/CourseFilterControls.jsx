@@ -46,7 +46,7 @@ export const CourseFilterControls = ({
   const isMobile = width < breakpoints.small.minWidth;
 
   return (
-    <div id="course-filter-controls">
+    <div id="course-filter-controls" style={{padding:"10px 0px"}}>
       <Button
         ref={setTarget}
         variant="outline-primary"
