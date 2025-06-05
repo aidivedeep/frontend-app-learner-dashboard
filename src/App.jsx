@@ -25,7 +25,8 @@ import LearnerDashboardHeader from "containers/LearnerDashboardHeader";
 import { getConfig } from "@edx/frontend-platform";
 import messages from "./messages";
 import "./App.scss";
-import { ContextAppProvider } from "../context";
+import { useAppContext } from "../context";
+import LoadingView from "./containers/Dashboard/LoadingView";
 
 export const App = () => {
   const { authenticatedUser } = React.useContext(AppContext);
@@ -37,6 +38,12 @@ export const App = () => {
   const hasNetworkFailure = isFailed.initialize || isFailed.refreshList;
   const { supportEmail } = reduxHooks.usePlatformSettingsData();
   const loadData = reduxHooks.useLoadData();
+  const { customization, multiTenancyloading } = useAppContext();
+  const [colors, setColors] = React.useState({
+    activeColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    activeHoverColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    hoverColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
+  });
 
   React.useEffect(() => {
     if (
@@ -70,39 +77,57 @@ export const App = () => {
     }
   }, [authenticatedUser, loadData]);
 
-  
+  React.useEffect(() => {
+    if (customization) {
+      setColors({
+        activeColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
+        activeHoverColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
+        hoverColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
+      });
+    }
+  }, [customization]);
 
   return (
     <>
-      <ContextAppProvider>
-        <Helmet>
-          <title>{formatMessage(messages.pageTitle)}</title>
-          <link
-            rel="shortcut icon"
-            href={getConfig().FAVICON_URL}
-            type="image/x-icon"
-          />
-        </Helmet>
-        <div>
-          <AppWrapper>
-            <LearnerDashboardHeader />
-            <main>
-              {hasNetworkFailure ? (
-                <Alert variant="danger">
-                  <ErrorPage
-                    message={formatMessage(messages.errorMessage, {
-                      supportEmail,
-                    })}
-                  />
-                </Alert>
-              ) : (
-                <Dashboard />
-              )}
-            </main>
-          </AppWrapper>
-          <FooterSlot />
+      {multiTenancyloading ? (
+        <LoadingView />
+      ) : (
+        <div
+          style={{
+            "--active-bg": colors?.activeColor,
+            "--active-hover-bg": colors?.activeHoverColor,
+            "--hover-bg": colors?.hoverColor,
+          }}
+        >
+          <Helmet>
+            <title>{formatMessage(messages.pageTitle)}</title>
+            <link
+              rel="shortcut icon"
+              href={getConfig().FAVICON_URL}
+              type="image/x-icon"
+            />
+          </Helmet>
+          <div>
+            <AppWrapper>
+              <LearnerDashboardHeader />
+              <main>
+                {hasNetworkFailure ? (
+                  <Alert variant="danger">
+                    <ErrorPage
+                      message={formatMessage(messages.errorMessage, {
+                        supportEmail,
+                      })}
+                    />
+                  </Alert>
+                ) : (
+                  <Dashboard />
+                )}
+              </main>
+            </AppWrapper>
+            <FooterSlot />
+          </div>
         </div>
-      </ContextAppProvider>
+      )}
     </>
   );
 };
