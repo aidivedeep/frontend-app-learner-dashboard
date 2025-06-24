@@ -73,19 +73,19 @@ $input-focus-box-shadow: $input-box-shadow; // hack to get upgrade to paragon 4.
 }
 
 .nav-link:hover {
-  background-color: var(--hover-bg) !important;
+  background-color: var(--links-color-hover) !important;
   color: white !important;
 
 }
 
 .nav-link.active {
-  background-color: var(--active-bg) !important;
+  background-color: var(--links-color) !important;
   color: white !important;
 
 }
 
 .nav-link.active:hover {
-  background-color: var(--active-hover-bg) !important;
+  background-color: var(--links-color-hover) !important;
   color: white !important;
 
 }
@@ -103,4 +103,5 @@ $input-focus-box-shadow: $input-box-shadow; // hack to get upgrade to paragon 4.
   box-shadow: none !important;
   outline: none !important; 
 }
+
 

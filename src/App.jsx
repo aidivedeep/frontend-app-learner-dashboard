@@ -40,9 +40,12 @@ export const App = () => {
   const loadData = reduxHooks.useLoadData();
   const { customization, multiTenancyloading } = useAppContext();
   const [colors, setColors] = React.useState({
-    activeColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
-    activeHoverColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
-    hoverColor: customization?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    activeColor: customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    activeHoverColor: customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    hoverColor: customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+    linksColor: customization?.colors?.INDIGO_LINKS_COLOR || "#0A3055",
+    linksColorHover:
+      customization?.colors?.INDIGO_LINKS_HOVER_COLOR || "#0A3055",
   });
 
   React.useEffect(() => {
@@ -80,9 +83,13 @@ export const App = () => {
   React.useEffect(() => {
     if (customization) {
       setColors({
-        activeColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
-        activeHoverColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
-        hoverColor: customization.INDIGO_PRIMARY_COLOR || "#0A3055",
+        activeColor: customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+        activeHoverColor:
+          customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+        hoverColor: customization?.colors?.INDIGO_PRIMARY_COLOR || "#0A3055",
+        linksColor: customization?.colors?.INDIGO_LINKS_COLOR || "#0A3055",
+        linksColorHover:
+          customization?.colors?.INDIGO_LINKS_HOVER_COLOR || "#0A3055",
       });
     }
   }, [customization]);
@@ -97,6 +104,8 @@ export const App = () => {
             "--active-bg": colors?.activeColor,
             "--active-hover-bg": colors?.activeHoverColor,
             "--hover-bg": colors?.hoverColor,
+            "--links-color":colors?.linksColor,
+            "--links-color-hover":colors?.linksColorHover,
           }}
         >
           <Helmet>
