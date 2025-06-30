@@ -13,7 +13,11 @@ const Partners = ({ partners }) => {
     <>
       {partners?.alternateHtml ? (
         <div>
-          <pre>{partners?.alternateHtml}</pre>
+          <pre
+            dangerouslySetInnerHTML={{
+              __html: partners?.alternateHtml,
+            }}
+          />
         </div>
       ) : (
         <div
@@ -55,7 +59,7 @@ const Partners = ({ partners }) => {
               <div
                 key={i}
                 className="w-100 d-flex justify-content-center align-items-center"
-                style={{ height: "200px" }}
+                style={{ height: "120px" }}
               >
                 <a
                   href={i?.url}

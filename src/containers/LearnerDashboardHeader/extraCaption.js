@@ -4,13 +4,18 @@ const ExtraCaption = ({ customization }) => {
   return (
     <div className="w-100">
       {customization?.data?.extraCaption?.alternateHtml ? (
-        <pre>{customization?.data?.extraCaption?.alternateHtml}</pre>
+        <pre
+          dangerouslySetInnerHTML={{
+            __html: customization?.data?.extraCaption?.alternateHtml,
+          }}
+        />
       ) : (
         <div
           className="d-flex justify-content-center align-items-center flex-column text-center p-5"
           style={{
             backgroundColor:
-              customization?.data?.extraCaption?.css?.backgroundColor || "#FAFAFA",
+              customization?.data?.extraCaption?.css?.backgroundColor ||
+              "#FAFAFA",
             border: customization?.data?.extraCaption?.css?.borderColor
               ? `1px solid ${customization.data.extraCaption.css.borderColor}`
               : "",

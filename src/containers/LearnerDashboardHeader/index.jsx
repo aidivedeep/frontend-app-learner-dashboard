@@ -50,9 +50,12 @@ export const LearnerDashboardHeader = () => {
             }}
           >
             {customization?.data?.banner?.alternateHtml ? (
-              <pre className="text-white">
-                {customization?.data?.banner?.alternateHtml}
-              </pre>
+              <div
+                className="text-white whitespace-pre-wrap"
+                dangerouslySetInnerHTML={{
+                  __html: customization?.data?.banner?.alternateHtml,
+                }}
+              />
             ) : (
               <div className="flex flex-col gap-y-0 p-0 p-5 text-white text-center">
                 <p className="fw-bold display-1 mb-2  p-0">
