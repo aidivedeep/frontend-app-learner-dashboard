@@ -121,7 +121,15 @@ export const App = () => {
       {multiTenancyloading ? (
         <LoadingView />
       ) : (
-        <div>
+        <div
+        style={{
+        "--active-bg": colors?.activeColor,
+        "--active-hover-bg": colors?.activeHoverColor,
+        "--hover-bg": colors?.hoverColor,
+        "--links-color": colors?.linksColor,
+        "--links-color-hover": colors?.linksColorHover,
+      }}
+        >
           <Helmet>
             <title>{formatMessage(messages.pageTitle)}</title>
             <link
