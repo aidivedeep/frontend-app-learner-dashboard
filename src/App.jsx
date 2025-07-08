@@ -54,7 +54,7 @@ export const App = () => {
     const b = bigint & 255;
     return `${r}, ${g}, ${b}`;
   }
-  const { customization, multiTenancyloading, setMultiTenancyLoading } =
+  const { customization, multiTenancyloading, themeLoading } =
     useAppContext();
 
   const [colors, setColors] = React.useState({
@@ -118,7 +118,7 @@ export const App = () => {
 
   return (
     <>
-      {multiTenancyloading ? (
+      {multiTenancyloading || themeLoading ? (
         <LoadingView />
       ) : (
         <div

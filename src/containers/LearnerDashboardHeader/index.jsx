@@ -40,34 +40,47 @@ export const LearnerDashboardHeader = () => {
         />
         {customization?.data?.bannerImage && (
           <div
-            className="w-100 d-flex justify-content-center align-items-center"
-            style={{
-              height: "550px",
-              backgroundImage: `url(${process.env.tanancy}/${customization?.data?.bannerImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
+            className="w-100 d-flex justify-content-center align-items-center position-relative"
+            style={{ height: "550px", overflow: "hidden" }}
           >
+            <img
+              src={`${process.env.tanancy}/${customization?.data?.bannerImage}`}
+              loading="lazy"
+              alt="Banner"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                zIndex: 0,
+              }}
+            />
+
             {customization?.data?.banner?.alternateHtml ? (
               <div
-                className="text-white whitespace-pre-wrap"
+                className="text-white whitespace-pre-wrap position-relative"
+                style={{ zIndex: 1 }}
                 dangerouslySetInnerHTML={{
                   __html: customization?.data?.banner?.alternateHtml,
                 }}
               />
             ) : (
-              <div className="flex flex-col gap-y-0 p-0 p-5 text-white text-center">
-                <p className="fw-bold display-1 mb-2  p-0">
+              <div
+                className="flex flex-col gap-y-0 p-0 p-5 text-white text-center position-relative"
+                style={{ zIndex: 1 }}
+              >
+                <p className="fw-bold display-1 mb-2 p-0">
                   {customization?.data?.banner?.title}
                 </p>
                 <p
-                  className="fw-semibold  mb-0  p-0"
+                  className="fw-semibold mb-0 p-0"
                   style={{ fontSize: "24px" }}
                 >
                   {customization?.data?.banner?.subTitle}
                 </p>
-                <p className="  mb-0 p-0">{customization?.data?.banner?.p}</p>
+                <p className="mb-0 p-0">{customization?.data?.banner?.p}</p>
               </div>
             )}
           </div>
