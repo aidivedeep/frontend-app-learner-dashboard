@@ -161,3 +161,16 @@ body.theme-persistent.paragon-theme-loaded,
 .menu-trigger{
   color: var(--active-bg) !important;
 }
+
+
+.theme-toggle-button .dark-theme-icon>span{
+  color: var(--active-bg) !important;
+}
+.theme-toggle-button .dark-theme-icon>span, .theme-toggle-button .light-theme-icon>span{
+  color: var(--active-bg) !important;
+}
+
+
+.theme-toggle-button .toggle-switch .switch .slider {
+  background-color: var(--active-bg) !important;
+}
